@@ -50,13 +50,33 @@ app.put("/completed",async (req,res)=>{
     }
 
     const userid=await todo.findOne({
-        _id:updatepayload.id,
+        _id:updatepayload._id
     })
-   console.log(userid)
-
+   
+   try{
+     if (userid){
+        await todo.updateOne({
+            _id:updatepayload._id
+        },
+        {
+            completed:true
+        }
+        )
     res.json({
         msg:"todo marked as done."
-    })
+})
+     }
+     else{
+        res.status(400).json({
+            msg:"Invalid ID"
+        })
+     }
+    }
+    catch(e){
+        res.status(404).json({
+            msg:e
+        })
+    }
 
 })
 app.listen(port,()=>{

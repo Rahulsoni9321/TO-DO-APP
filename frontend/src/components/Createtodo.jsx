@@ -6,7 +6,8 @@ export function Createtodo() {
   return (
     <div>
       <input
-        style={{ padding: 10, margin: 10 }}
+      className="create"
+        
         onChange={function (e) {
           const value = e.target.value;
           settitle(value);
@@ -16,7 +17,7 @@ export function Createtodo() {
       ></input>{" "}
       <br></br>
       <input
-        style={{ padding: 10, margin: 10 }}
+        className="create"
         onChange={function (e) {
           setdescription(e.target.value);
         }}
@@ -24,9 +25,19 @@ export function Createtodo() {
         placeholder="Enter description"
       ></input>{" "}
       <br></br>
+      
       <button
-        style={{ padding: 10, margin: 10 }}
+        id="create-button"
+
         onClick={() => {
+          const trimmedTitle = title.trim();
+          const trimmedDescription = description.trim();
+      
+          // Check if both title and description are not empty
+          if (!trimmedTitle || !trimmedDescription) {
+            alert("Title and description cannot be empty");
+            return;
+          }
           fetch("http://localhost:4000/todo", {
             method: "POST",
             body: JSON.stringify({

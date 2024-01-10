@@ -12,11 +12,18 @@ function App() {
  .then(async function(response){
   const json=await response.json();
   setTodos(json.todos);
- })},[...todos])
+ })},[todos])
   return (
-    <div>
-      <Createtodo></Createtodo>  
+    <div className='container'>
+      <center><h1 id='header'># TO Do Application.</h1></center>
+      <Createtodo></Createtodo>
+      <br></br>
+      <hr style={{marginLeft:5}}></hr> 
+      <br></br> 
+      <center><h2 id='heading'>~ To Do List.</h2></center>
+      <br></br>
      <Todosadd todos={todos}></Todosadd>
+     
     </div>
 
   )
