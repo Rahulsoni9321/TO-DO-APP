@@ -12,7 +12,7 @@ export function Todosadd({todos}){
         <button 
         id="todo-button"
         onClick={()=>{
-           
+            if (todo.completed==false){
              fetch("http://localhost:4000/completed", {
                 method: "PUT",
                 body: JSON.stringify({
@@ -25,6 +25,21 @@ export function Todosadd({todos}){
                 const json = await res.json();
                 alert("To do Marked as done.");
               })
+            }
+            else {
+              fetch("http://localhost:4000/completed", {
+                method: "PUT",
+                body: JSON.stringify({
+                  _id:todo._id
+                }),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }).then(async function (res) {
+                const json = await res.json();
+                alert("To do Marked as undone.");
+              })
+            }
            
 
         }}>{todo.completed==true ? "Completed":"Mark as Complete" }</button>

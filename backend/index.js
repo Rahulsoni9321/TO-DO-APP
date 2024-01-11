@@ -55,6 +55,7 @@ app.put("/completed",async (req,res)=>{
    
    try{
      if (userid){
+        if (userid.completed==false){
         await todo.updateOne({
             _id:updatepayload._id
         },
@@ -64,7 +65,19 @@ app.put("/completed",async (req,res)=>{
         )
     res.json({
         msg:"todo marked as done."
+})}
+    else {
+        await todo.updateOne({
+            _id:updatepayload._id
+        },
+        {
+            completed:false
+        }
+        )
+    res.json({
+        msg:"todo marked as undone."
 })
+    }
      }
      else{
         res.status(400).json({
